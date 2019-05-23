@@ -1,0 +1,169 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" type="xsd:integer" name="IntervalSeconds" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" type="xsd:string" name="SyncTime" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" type="xsd:integer" name="TimeoutSeconds" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" type="xsd:boolean" name="Debug" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="Debug" Selector="$Config/Debug$" ParameterType="bool" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="PA" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagTriggerOnlyProbe">
+                <ScriptName>LOST.Win.OS.Monitor.Pending.Reboot.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/LOST.Win.OS.Monitor.Pending.Reboot.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>debug</Name>
+                    <Value>$Config/Debug$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PA">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+    </ModuleTypes>
+    <MonitorTypes>
+      <UnitMonitorType ID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="NoPendingReboot" NoDetection="false" />
+          <MonitorTypeState ID="PendingRebootActive" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" type="xsd:integer" name="IntervalSeconds" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" type="xsd:string" name="SyncTime" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" type="xsd:integer" name="TimeoutSeconds" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" type="xsd:boolean" name="Debug" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="Debug" Selector="$Config/Debug$" ParameterType="bool" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource">
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              <Debug>$Config/Debug$</Debug>
+            </DataSource>
+            <ConditionDetection ID="NoPendingRebootFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='PENDINGREBOOT']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">NO</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="PendingRebootActiveFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='PENDINGREBOOT']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">YES</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="NoPendingReboot">
+              <Node ID="NoPendingRebootFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="PendingRebootActive">
+              <Node ID="PendingRebootActiveFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+          <OnDemandDetections>
+            <OnDemandDetection MonitorTypeStateID="NoPendingReboot">
+              <Node ID="NoPendingRebootFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+            <OnDemandDetection MonitorTypeStateID="PendingRebootActive">
+              <Node ID="PendingRebootActiveFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+          </OnDemandDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource">
+          <Name>Windows Pending Reboot Monitor Datasource [LOST]</Name>
+          <Description>Windows Pending Reboot Monitor Datasource</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource" SubElementID="IntervalSeconds">
+          <Name>IntervalSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource" SubElementID="SyncTime">
+          <Name>SyncTime</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource" SubElementID="TimeoutSeconds">
+          <Name>TimeoutSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.DataSource" SubElementID="Debug">
+          <Name>Debug</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType">
+          <Name>Windows Pending Reboot Monitor MonitorType [LOST]</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType" SubElementID="IntervalSeconds">
+          <Name>InternalSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType" SubElementID="SyncTime">
+          <Name>SyncTime</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType" SubElementID="TimeoutSeconds">
+          <Name>TimeoutSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType" SubElementID="Debug">
+          <Name>Debug</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

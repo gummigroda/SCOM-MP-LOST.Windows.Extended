@@ -1,0 +1,172 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+          <xsd:element minOccurs="1" name="DaysThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="DaysThreshold" Selector="$Config/DaysThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates></ExcludeDates>
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="PA" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagTriggerOnlyProbe">
+                <ScriptName>LOST.Win.OS.Monitor.Uptime.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/LOST.Win.OS.Monitor.Uptime.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>DaysThreshold</Name>
+                    <Value>$Config/DaysThreshold$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PA">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+    </ModuleTypes>
+    <MonitorTypes>
+      <UnitMonitorType ID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="UnderThreshold" NoDetection="false" />
+          <MonitorTypeState ID="OverThreshold" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+          <xsd:element minOccurs="1" name="DaysThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></xsd:element>
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="DaysThreshold" Selector="$Config/DaysThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource">
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <DaysThreshold>$Config/DaysThreshold$</DaysThreshold>
+              <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+            </DataSource>
+            <ConditionDetection ID="UnderThresholdFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Result']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">UnderThreshold</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="OverThresholdFilter" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='Result']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">OverThreshold</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="UnderThreshold">
+              <Node ID="UnderThresholdFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="OverThreshold">
+              <Node ID="OverThresholdFilter">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+          <OnDemandDetections>
+            <OnDemandDetection MonitorTypeStateID="UnderThreshold">
+              <Node ID="UnderThresholdFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+            <OnDemandDetection MonitorTypeStateID="OverThreshold">
+              <Node ID="OverThresholdFilter">
+                <Node ID="DS" />
+              </Node>
+            </OnDemandDetection>
+          </OnDemandDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource">
+          <Name>Windows OS Updates Monitor DataSource [LOST]</Name>
+          <Description>The DataSource</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource" SubElementID="IntervalSeconds">
+          <Name>IntervalSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource" SubElementID="SyncTime">
+          <Name>SyncTime</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource" SubElementID="DaysThreshold">
+          <Name>Days Threshold</Name>
+          <Description>Days to set as threshold</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.DataSource" SubElementID="TimeoutSeconds">
+          <Name>TimeoutSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType">
+          <Name>Windows OS Uptime MonitorType [LOST]</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType" SubElementID="IntervalSeconds">
+          <Name>IntervalSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType" SubElementID="SyncTime">
+          <Name>SyncTime</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType" SubElementID="DaysThreshold">
+          <Name>Days Threshold</Name>
+          <Description>Days to set as threshold</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType" SubElementID="TimeoutSeconds">
+          <Name>TimeoutSeconds</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+
+</ManagementPackFragment>

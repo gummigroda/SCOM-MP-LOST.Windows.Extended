@@ -1,0 +1,48 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="LOST.Windows.Computer.SysInfo.PS.Discovery" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="true" Priority="Normal">
+    <Category>Discovery</Category>
+    <DiscoveryTypes>
+      <DiscoveryClass TypeID="LOST.Windows.Computer">
+        <Property TypeID="LOST.Windows.Computer" PropertyID="SystemSerial" />
+        <Property TypeID="LOST.Windows.Computer" PropertyID="CPUCores" />
+        <Property TypeID="LOST.Windows.Computer" PropertyID="SMBIOSAssetTag" />
+        <Property TypeID="LOST.Windows.Computer" PropertyID="CPUHTStatus" />
+      </DiscoveryClass>
+    </DiscoveryTypes>
+    <DataSource ID="PS" TypeID="Windows!Microsoft.Windows.TimedPowerShell.DiscoveryProvider">
+      <IntervalSeconds>86400</IntervalSeconds>
+      <SyncTime />
+      <ScriptName>LOST.Win.Comp.Discovery.Get.SysInfo.ps1</ScriptName>
+      <ScriptBody>$IncludeFileContent/Scripts/LOST.Win.Comp.Discovery.Get.SysInfo.ps1$</ScriptBody>
+      <Parameters>
+        <Parameter>
+          <Name>sourceID</Name>
+          <Value>$MPElement$</Value>
+        </Parameter>
+        <Parameter>
+          <Name>managedEntityID</Name>
+          <Value>$Target/Id$</Value>
+        </Parameter>
+        <Parameter>
+          <Name>computerName</Name>
+          <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+        </Parameter>
+      </Parameters>
+      <TimeoutSeconds>300</TimeoutSeconds>
+    </DataSource>
+  </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.Computer.SysInfo.PS.Discovery">
+          <Name>Windows Computer System Info - PowerShell Discovery [LOST]</Name>
+          <Description>Discovers misc SystemInfo via Powershell</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

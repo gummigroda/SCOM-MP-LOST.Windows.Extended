@@ -1,0 +1,110 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="LOST.Windows.Computer.SysInfo.Registry.Discovery" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="LOST.Windows.Computer">
+            <Property TypeID="LOST.Windows.Computer" PropertyID="SystemManufacturer" />
+            <Property TypeID="LOST.Windows.Computer" PropertyID="SystemProductName" />
+            <Property TypeID="LOST.Windows.Computer" PropertyID="BIOSVersion" />
+            <Property TypeID="LOST.Windows.Computer" PropertyID="BIOSReleaseDate" />
+            <Property TypeID="LOST.Windows.Computer" PropertyID="BaseBoardProduct" />
+            <Property TypeID="LOST.Windows.Computer" PropertyID="BaseBoardVersion" />
+          </DiscoveryClass>
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.RegistryDiscoveryProvider">
+          <ComputerName>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+          <RegistryAttributeDefinitions>
+            <RegistryAttributeDefinition>
+              <AttributeName>Manu</AttributeName>
+              <Path>HARDWARE\DESCRIPTION\System\BIOS\SystemManufacturer</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>Prod</AttributeName>
+              <Path>HARDWARE\DESCRIPTION\System\BIOS\SystemProductName</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>BBVersion</AttributeName>
+              <Path>HARDWARE\DESCRIPTION\System\BIOS\BaseBoardVersion</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>BBProd</AttributeName>
+              <Path>HARDWARE\DESCRIPTION\System\BIOS\BaseBoardProduct</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>BIOSVer</AttributeName>
+              <Path>HARDWARE\DESCRIPTION\System\BIOS\BIOSVersion</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>BIOSRel</AttributeName>
+              <Path>HARDWARE\DESCRIPTION\System\BIOS\BIOSReleaseDate</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>Team</AttributeName>
+              <Path>SOFTWARE\SR\SCOM\SupportTeam</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+          </RegistryAttributeDefinitions>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="LOST.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="LOST.Windows.Computer"]/SystemManufacturer$</Name>
+                <Value>$Data/Values/Manu$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="LOST.Windows.Computer"]/SystemProductName$</Name>
+                <Value>$Data/Values/Prod$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="LOST.Windows.Computer"]/BIOSVersion$</Name>
+                <Value>$Data/Values/BIOSVer$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="LOST.Windows.Computer"]/BIOSReleaseDate$</Name>
+                <Value>$Data/Values/BIOSRel$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="LOST.Windows.Computer"]/BaseBoardProduct$</Name>
+                <Value>$Data/Values/BBProd$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="LOST.Windows.Computer"]/BaseBoardVersion$</Name>
+                <Value>$Data/Values/BBVersion$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.Computer.SysInfo.Registry.Discovery">
+          <Name>Windows Computer System Info - Registry Discovery [LOST]</Name>
+          <Description>Discover misc computer properties from registry</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

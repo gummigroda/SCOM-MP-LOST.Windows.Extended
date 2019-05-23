@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "LOST.Windows.Extended.Lib", "LOST.Windows.Extended.Lib\LOST.Windows.Extended.Lib.mpproj", "{3E5C3695-4D1E-451E-BBC9-8ACD67AAA906}"
+EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "LOST.Windows.Extended.Monitoring", "LOST.Windows.Extended.Monitoring\LOST.Windows.Extended.Monitoring.mpproj", "{EDE45317-D7C7-475C-AB4B-E5BBCF872F09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E5C3695-4D1E-451E-BBC9-8ACD67AAA906}.Debug|x86.ActiveCfg = Debug|x86
+		{3E5C3695-4D1E-451E-BBC9-8ACD67AAA906}.Debug|x86.Build.0 = Debug|x86
+		{3E5C3695-4D1E-451E-BBC9-8ACD67AAA906}.Release|x86.ActiveCfg = Release|x86
+		{3E5C3695-4D1E-451E-BBC9-8ACD67AAA906}.Release|x86.Build.0 = Release|x86
+		{EDE45317-D7C7-475C-AB4B-E5BBCF872F09}.Debug|x86.ActiveCfg = Debug|x86
+		{EDE45317-D7C7-475C-AB4B-E5BBCF872F09}.Debug|x86.Build.0 = Debug|x86
+		{EDE45317-D7C7-475C-AB4B-E5BBCF872F09}.Release|x86.ActiveCfg = Release|x86
+		{EDE45317-D7C7-475C-AB4B-E5BBCF872F09}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {313C61AD-69CC-4C8B-9794-5978FAC26864}
+	EndGlobalSection
+EndGlobal

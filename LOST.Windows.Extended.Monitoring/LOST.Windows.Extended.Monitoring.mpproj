@@ -1,0 +1,93 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{EDE45317-D7C7-475C-AB4B-E5BBCF872F09}</ProjectGuid>
+    <RootNamespace>LOST.Windows.Extended</RootNamespace>
+    <Name>LOST.Windows.Extended.Monitoring</Name>
+    <ManagementPackName>LOST.Windows.Extended.Monitoring</ManagementPackName>
+    <Version>1.0.1.0</Version>
+    <MpFrameworkVersion>v7.0.2</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>false</GenerateSealed>
+    <Company>LOST</Company>
+    <Copyright>Copyright (c) LOST. All rights reserved.</Copyright>
+    <DelaySigning>false</DelaySigning>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>False</DelaySigning>
+    <Company>LOST</Company>
+    <Copyright>Copyright (c) LOST. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\..\LOST.MP.Key\LOST.MP.PairKey.snk</AssemblyOriginatorKeyFile>
+    <GenerateSealed>True</GenerateSealed>
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\LOST.Win.OS.Uptime.Module.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\LOST.Win.OS.Pending.Reboot.Module.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\LOST.Monitor.OS.Uptime.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\LOST.Monitor.OS.PendingReboot.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\LOST.Rule.OS.Restarted.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules" />
+    <Folder Include="Monitors" />
+    <Folder Include="Scripts" />
+    <Folder Include="Rules" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\LOST.Win.OS.Monitor.Uptime.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.OS.Monitor.Pending.Reboot.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LOST.Windows.Extended.Lib\LOST.Windows.Extended.Lib.mpproj">
+      <Name>LOST.Windows.Extended.Lib</Name>
+      <Project>{17d4c869-66ab-40f4-a43c-f807b6970c2c}</Project>
+      <Private>True</Private>
+      <Alias>LWOL</Alias>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

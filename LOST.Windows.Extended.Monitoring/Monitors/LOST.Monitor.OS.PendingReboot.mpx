@@ -1,0 +1,59 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Monitors>
+      <UnitMonitor ID="LOST.Windows.OperatingSystem.Server.PendingReboot.Monitor" Accessibility="Public" Enabled="true" Target="LWOL!LOST.Windows.OperatingSystem" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.MonitorType" ConfirmDelivery="true">
+        <Category>AvailabilityHealth</Category>
+        <AlertSettings AlertMessage="LOST.Windows.OperatingSystem.PendingReboot.Monitor.AlertMessage">
+          <AlertOnState>Warning</AlertOnState>
+          <!-- Warning or Error should match OperationalStates below  -->
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
+          <AlertParameters>
+            <AlertParameter1>$Data/Context/Property[@Name='Description']$</AlertParameter1>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="NoPendingReboot" MonitorTypeStateID="NoPendingReboot" HealthState="Success" />
+          <OperationalState ID="PendingRebootActive" MonitorTypeStateID="PendingRebootActive" HealthState="Warning" />
+          <!-- HealthState = Warning or Error -->
+        </OperationalStates>
+        <Configuration>
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime></SyncTime>
+          <TimeoutSeconds>120</TimeoutSeconds>
+          <Debug>false</Debug>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.AlertMessage" />
+    </StringResources>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Server.PendingReboot.Monitor">
+          <Name>Windows Server PendingReboot Monitor [LOST]</Name>
+          <Description>Monitors PendingReboots</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Server.PendingReboot.Monitor" SubElementID="NoPendingReboot">
+          <Name>No Pending Reboot</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Server.PendingReboot.Monitor" SubElementID="PendingRebootActive">
+          <Name>Pending Reboot</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.PendingReboot.Monitor.AlertMessage">
+          <Name>Windows Operating System has a PendingReboot</Name>
+          <Description>
+            The Windows Operating System has a PendingReboot.
+            {0}
+          </Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

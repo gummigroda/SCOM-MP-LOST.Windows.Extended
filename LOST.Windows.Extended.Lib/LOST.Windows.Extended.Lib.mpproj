@@ -1,0 +1,120 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{3e5c3695-4d1e-451e-bbc9-8acd67aaa906}</ProjectGuid>
+    <RootNamespace>LOST.Windows.Extended</RootNamespace>
+    <Name>LOST Windows Extended Library</Name>
+    <ManagementPackName>LOST.Windows.Extended.Lib</ManagementPackName>
+    <Version>1.0.1.0</Version>
+    <MpFrameworkVersion>v7.0.2</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>false</GenerateSealed>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySigning>false</DelaySigning>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>False</DelaySigning>
+    <Company>LOST</Company>
+    <Copyright>Copyright (c) LOST. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\..\LOST.MP.Key\LOST.MP.PairKey.snk</AssemblyOriginatorKeyFile>
+    <GenerateSealed>True</GenerateSealed>
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SystemCenter.DataWarehouse.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.SystemCenter.DataWarehouse.Library.mp</HintPath>
+      <Alias>SCDW</Alias>
+      <MinVersion>7.1.10226.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Discoveries\LOST.Win.Comp.SysInfo.PS.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Discoveries\LOST.Win.Comp.SysInfo.Registry.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Discoveries\LOST.Win.OS.WSUS.Settings.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Discoveries\LOST.Win.OS.WU.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Icons\Icons.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\LOST.Win.OS.1338.Errors.AlertRule.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\LOST.Win.OS.1338.Errors.DWCollection.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\LOST.Win.Comp.NetPort.Task.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\LOST.Win.Comp.Uptime.Task.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\LOST.Win.OS.WU.ListPending.Updates.Task.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Discoveries\" />
+    <Folder Include="Icons" />
+    <Folder Include="Rules\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="Tasks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Windows.Extended.16px.png">
+      <SubType>Content</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\Windows.Extended.72px.png">
+      <SubType>Content</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\LOST.Win.Comp.Discovery.Get.SysInfo.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.Comp.Task.GetUptime.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.Comp.Task.TestNetPort.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.OS.Discovery.WSUS.Info.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.OS.Discovery.WU.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.OS.Task.ListWUpdates.ps1" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

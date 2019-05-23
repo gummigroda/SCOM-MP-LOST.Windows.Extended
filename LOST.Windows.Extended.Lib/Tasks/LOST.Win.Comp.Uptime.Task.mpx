@@ -1,0 +1,56 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <WriteActionModuleType ID="LOST.Windows.Computer.GetUptime.Task.WA" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>LOST.Win.Comp.Task.GetUptime.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/LOST.Win.Comp.Task.GetUptime.ps1$</ScriptBody>
+                <Parameters></Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PSWA" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.BaseData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions><Monitoring>
+    <Tasks>
+      <Task ID="LOST.Windows.Computer.GetUptime.Task" Accessibility="Public" Enabled="true" Target="Windows!Microsoft.Windows.Computer" Timeout="120" Remotable="true">
+        <Category>Custom</Category>
+        <WriteAction ID="PSWA" TypeID="LOST.Windows.Computer.GetUptime.Task.WA">
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
+      </Task>
+    </Tasks>
+  </Monitoring><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.Computer.GetUptime.Task">
+          <Name>3. Get System Uptime</Name>
+          <Description>Get's system uptime and LastBootTime</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer.GetUptime.Task.WA">
+          <Name>Windows Computer Get Uptime Task [LOST]</Name>
+          <Description>Task to get computer uptime and LastBootTime</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer.GetUptime.Task.WA" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>Timeout in seconds</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles></KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

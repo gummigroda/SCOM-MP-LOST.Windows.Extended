@@ -1,0 +1,52 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Monitoring>
+    <Monitors>
+      <UnitMonitor ID="LOST.Windows.OperatingSystem.Uptime.Monitor" Accessibility="Public" Enabled="true" Target="LWOL!LOST.Windows.OperatingSystem" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="LOST.Windows.OperatingSystem.Uptime.Monitor.MonitorType" ConfirmDelivery="true">
+        <Category>AvailabilityHealth</Category>
+        <AlertSettings AlertMessage="LOST.Windows.OperatingSystem.Uptime.Monitor.AlertMessage">
+          <AlertOnState>Warning</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>Warning</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Data/Context/Property[@Name='Result']$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Property[@Name='Message']$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="UnderThreshold" HealthState="Success" />
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="OverThreshold" HealthState="Warning" />
+        </OperationalStates>
+        <Configuration>
+          <IntervalSeconds>86400</IntervalSeconds>
+          <SyncTime></SyncTime>
+          <DaysThreshold>45</DaysThreshold>
+          <TimeoutSeconds>120</TimeoutSeconds>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring><Presentation>
+    <StringResources>
+      <StringResource ID="LOST.Windows.OperatingSystem.Uptime.Monitor.AlertMessage" />
+    </StringResources>
+  </Presentation><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor">
+          <Name>Windows Computer Uptime Monitor [LOST]</Name>
+          <Description>Monitors a computers uptime, and alerts if it's been running more than the threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor" SubElementID="UnderThreshold">
+          <Name>Under Threshold</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor" SubElementID="OverThreshold">
+          <Name>Over Threshold</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem.Uptime.Monitor.AlertMessage">
+          <Name>Windows Computer Uptime has passed the threshold</Name>
+          <Description>
+            {1}
+          </Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

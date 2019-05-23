@@ -1,0 +1,70 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <WriteActionModuleType ID="LOST.Windows.OS.ListUpdates.Task.WA" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Debug" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="Debug" Selector="$Config/Debug$" ParameterType="string" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>LOST.Win.OS.Task.ListWUpdates.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/LOST.Win.OS.Task.ListWUpdates.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>Debug</Name>
+                    <Value>$Config/Debug$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PSWA" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.BaseData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Tasks>
+      <Task ID="LOST.Windows.OS.ListUpdates.Task" Accessibility="Public" Enabled="true" Target="LOST.Windows.OperatingSystem" Timeout="120" Remotable="true">
+        <Category>Custom</Category>
+        <WriteAction ID="PSWA" TypeID="LOST.Windows.OS.ListUpdates.Task.WA">
+          <TimeoutSeconds>180</TimeoutSeconds>
+          <Debug>false</Debug>
+        </WriteAction>
+      </Task>
+    </Tasks>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="LOST.Windows.OS.ListUpdates.Task">
+          <Name>1. List Pending Updates</Name>
+          <Description>Lists availible Windows updates. May take some time to report back. If timed out, try increase the timeout value.</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OS.ListUpdates.Task.WA">
+          <Name>LOST Get Windows Updates Task WorkActionModule</Name>
+          <Description>Workmodule</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OS.ListUpdates.Task.WA" SubElementID="TimeoutSeconds">
+          <Name>TimeoutSeconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OS.ListUpdates.Task.WA" SubElementID="Debug">
+          <Name>Debug</Name>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles></KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

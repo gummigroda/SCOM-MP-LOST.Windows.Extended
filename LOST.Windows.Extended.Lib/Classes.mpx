@@ -1,0 +1,143 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="LOST.Windows.OperatingSystem" Base="Windows!Microsoft.Windows.OperatingSystem" Accessibility="Public" Abstract="false" Hosted="true" Singleton="false">
+          <Property ID="WUTotalUpdates" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WUCriticalUpdates" Type="int" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WUImportantUpdates" Type="int" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WUOtherUpdates" Type="int" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSServer" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSReportingServer" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSTargetGroup" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSTargetGroupEnabled" Type="bool" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSAUOptions" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSAUEnabled" Type="bool" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSUseWUServer" Type="bool" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSInstallDay" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSInstallTime" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WSUSRebootLoggedOnUsers" Type="bool" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="WeekUptime" Type="int" Key="false" CaseSensitive="false" MinLength="0" />
+        </ClassType>
+        <ClassType ID="LOST.Windows.Computer" Base="Windows!Microsoft.Windows.Computer" Accessibility="Public" Abstract="false" Hosted="false" Singleton="false">
+          <Property ID="SystemManufacturer" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="SystemProductName" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="SystemSerial" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="SMBIOSAssetTag" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="BaseBoardProduct" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="BaseBoardVersion" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="BIOSVersion" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="BIOSReleaseDate" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="CPUCores" Type="int" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="CPUHTStatus" Type="bool" Key="false" CaseSensitive="false" MinLength="0" />
+        </ClassType>
+      </ClassTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <!-- OS -->
+        <DisplayString ElementID="LOST.Windows.OperatingSystem">
+          <Name>Windows Operating System Extended [LOST]</Name>
+          <Description>Extended Windows Operating System Class</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WUTotalUpdates">
+          <Name>Updates Availible</Name>
+          <Description>Total Updates availible</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WUCriticalUpdates">
+          <Name>Critical Updates</Name>
+          <Description>Critical Updates availible</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WUImportantUpdates">
+          <Name>Important Updates</Name>
+          <Description>Important Updates availible</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WUOtherUpdates">
+          <Name>Other Updates</Name>
+          <Description>Other Updates availible</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSServer">
+          <Name>WSUS Server</Name>
+          <Description>Configured WSUS Server</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSReportingServer">
+          <Name>WSUS Reporting Server</Name>
+          <Description>Configured WSUS Reporting Server</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSTargetGroup">
+          <Name>WSUS Target Group</Name>
+          <Description>Assigned WSUS Target Group</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSTargetGroupEnabled">
+          <Name>Target Group Enabled</Name>
+          <Description />
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSAUOptions">
+          <Name>AU Options</Name>
+          <Description>How to act on Windows Updates</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSAUEnabled">
+          <Name>AU Enabled</Name>
+          <Description>Automatic Updates Enabled</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSUseWUServer">
+          <Name>Use WSUS</Name>
+          <Description>WSUS server or Windows Updates</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSInstallDay">
+          <Name>Install Day</Name>
+          <Description>Install updates on this day</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSInstallTime">
+          <Name>Install Time</Name>
+          <Description>Install updates at this time</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WSUSRebootLoggedOnUsers">
+          <Name>Respect logged on users</Name>
+          <Description>Reboot when logged on users</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WeekUptime">
+          <Name>Week(s) Uptime</Name>
+          <Description>Uptime in weeks of the OperatingSystem</Description>
+        </DisplayString>
+        <!-- COMPUTER -->
+        <DisplayString ElementID="LOST.Windows.Computer">
+          <Name>Windows Computer Extended [LOST]</Name>
+          <Description>Extended Windows Computer Class</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="BaseBoardProduct">
+          <Name>BaseBoard Product</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="BaseBoardVersion">
+          <Name>BaseBoard Version</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="BIOSReleaseDate">
+          <Name>BIOS Release Date</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="BIOSVersion">
+          <Name>BIOS Version</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="CPUCores">
+          <Name>CPU Cores Total</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="CPUHTStatus">
+          <Name>Hyperthreading</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="SMBIOSAssetTag">
+          <Name>AssetTag</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="SystemManufacturer">
+          <Name>System Manufacturer</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="SystemProductName">
+          <Name>System ProductName</Name>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer" SubElementID="SystemSerial">
+          <Name>Serial Number</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

@@ -1,0 +1,18 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Categories>
+    <Category ID="LOST.Windows.Extended.Image.72px.Category" Target="LOST.Windows.Extended.Image.72px" Value="System!System.Internal.ManagementPack.Images.DiagramIcon" />
+    <Category ID="LOST.Windows.Extended.Image.16px.Category" Target="LOST.Windows.Extended.Image.16px" Value="System!System.Internal.ManagementPack.Images.u16x16Icon" />
+  </Categories>
+  <Presentation>
+    <ImageReferences>
+      <ImageReference ElementID="LOST.Windows.OperatingSystem" ImageID="LOST.Windows.Extended.Image.72px"/>
+      <ImageReference ElementID="LOST.Windows.OperatingSystem" ImageID="LOST.Windows.Extended.Image.16px"/>
+      <ImageReference ElementID="LOST.Windows.Computer" ImageID="LOST.Windows.Extended.Image.72px"/>
+      <ImageReference ElementID="LOST.Windows.Computer" ImageID="LOST.Windows.Extended.Image.16px"/>
+    </ImageReferences>
+  </Presentation>
+  <Resources>
+    <Image ID="LOST.Windows.Extended.Image.72px" FileName="Windows.Extended.72px.png" Accessibility="Public" HasNullStream="false" Comment="Bigger icon" />
+    <Image ID="LOST.Windows.Extended.Image.16px" FileName="Windows.Extended.16px.png" Accessibility="Public" HasNullStream="false" Comment="Smaller icon" />
+  </Resources>
+</ManagementPackFragment>
