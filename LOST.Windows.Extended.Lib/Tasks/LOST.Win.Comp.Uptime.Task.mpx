@@ -34,11 +34,21 @@
           <TimeoutSeconds>60</TimeoutSeconds>
         </WriteAction>
       </Task>
+      <Task ID="LOST.Windows.Computer.GetUptime.OS.Task" Accessibility="Public" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" Timeout="120" Remotable="true">
+        <Category>Custom</Category>
+        <WriteAction ID="PSWA" TypeID="LOST.Windows.Computer.GetUptime.Task.WA">
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
+      </Task>
     </Tasks>
   </Monitoring><LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="LOST.Windows.Computer.GetUptime.Task">
+          <Name>3. Get System Uptime</Name>
+          <Description>Get's system uptime and LastBootTime</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer.GetUptime.OS.Task">
           <Name>3. Get System Uptime</Name>
           <Description>Get's system uptime and LastBootTime</Description>
         </DisplayString>

@@ -51,12 +51,24 @@
           <TimeoutSeconds>60</TimeoutSeconds>
         </WriteAction>
       </Task>
+      <Task ID="LOST.Windows.Computer.TestNetworkPort.OS.Task" Accessibility="Public" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" Timeout="120" Remotable="true">
+        <Category>Custom</Category>
+        <WriteAction ID="PSWA" TypeID="LOST.Windows.Computer.TestNetworkPort.Task.WA">
+          <Hostname>127.0.0.1</Hostname>
+          <NetworkPort>80</NetworkPort>
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
+      </Task>
     </Tasks>
   </Monitoring>
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="LOST.Windows.Computer.TestNetworkPort.Task">
+          <Name>2. Test Network Connection</Name>
+          <Description>Click "Override button" to change target host and target port to test</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.Computer.TestNetworkPort.OS.Task">
           <Name>2. Test Network Connection</Name>
           <Description>Click "Override button" to change target host and target port to test</Description>
         </DisplayString>

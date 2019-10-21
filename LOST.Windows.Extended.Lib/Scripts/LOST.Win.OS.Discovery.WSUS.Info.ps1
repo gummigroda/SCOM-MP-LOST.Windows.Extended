@@ -9,7 +9,7 @@ try {
 	
 	# Set stuff
 	[string]$scriptName = $MyInvocation.MyCommand.Name
-	[string]$scriptVersion = 'v1.02'
+	[string]$scriptVersion = 'v1.03'
 	[int]$evtID = 1337
 	$script:traceLog = @()
 	[int]$EventType = 4 # type, 1=Error, 2=Warning, 4=Information
@@ -50,11 +50,11 @@ try {
 	catch{
 		# Set stuff
 		[bool]$WSUSTargetGroupEnabled = $false
-		[string]$WSUSAUOptions = 'MISSING'
+		[string]$WSUSAUOptions = '-'
 		[bool]$WSUSAUEnabled = $false
 		[bool]$WSUSUseWUServer = $false
-		[string]$WSUSInstallDay = 'MISSING'
-		[string]$WSUSInstallTime = 'MISSING'
+		[string]$WSUSInstallDay = '-'
+		[string]$WSUSInstallTime = '-'
 		[bool]$WSUSRebootLoggedOnsers = $false
 	}
 	finally{

@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Monitoring>
     <Discoveries>
-      <Discovery ID="LOST.Windows.Computer.LicInfo.PS.Discovery" Enabled="false" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="true" Priority="Normal">
+      <Discovery ID="LOST.Windows.Computer.LicInfo.PS.Discovery" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="true" Priority="Normal">
         <Category>Discovery</Category>
         <DiscoveryTypes>
           <DiscoveryClass TypeID="LOST.Windows.OperatingSystem">
