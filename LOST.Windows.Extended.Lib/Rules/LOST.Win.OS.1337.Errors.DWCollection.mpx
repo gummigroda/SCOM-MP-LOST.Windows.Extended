@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Monitoring>
     <Rules>
-      <Rule ID="LOST.Windows.OS.1338.Errors.DWCollection" Enabled="false" Target="LOST.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
+      <Rule ID="LOST.Windows.OS.1337.Errors.DWCollection" Enabled="false" Target="LOST.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>EventCollection</Category>
         <DataSources>
           <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
@@ -16,7 +16,7 @@
                     </ValueExpression>
                     <Operator>Equal</Operator>
                     <ValueExpression>
-                      <Value Type="UnsignedInteger">1338</Value>
+                      <Value Type="UnsignedInteger">1337</Value>
                     </ValueExpression>
                   </SimpleExpression>
                 </Expression>
@@ -45,8 +45,8 @@
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-        <DisplayString ElementID="LOST.Windows.OS.1338.Errors.DWCollection">
-          <Name>Windows Operating System Updates - MP Error (DW Collection) [LOST]</Name>
+        <DisplayString ElementID="LOST.Windows.OS.1337.Errors.DWCollection">
+          <Name>Windows Extended - MP Error (DW Collection) [LOST]</Name>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

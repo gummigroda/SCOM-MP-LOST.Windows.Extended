@@ -61,6 +61,9 @@
     <Compile Include="Classes.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Discoveries\LOST.Win.Comp.LicInfo.PS.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Discoveries\LOST.Win.Comp.SysInfo.PS.Discovery.mpx">
       <SubType>Code</SubType>
     </Compile>
@@ -79,10 +82,10 @@
     <Compile Include="ManagementPack.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Rules\LOST.Win.OS.1338.Errors.AlertRule.mpx">
+    <Compile Include="Rules\LOST.Win.OS.1337.Errors.AlertRule.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Rules\LOST.Win.OS.1338.Errors.DWCollection.mpx">
+    <Compile Include="Rules\LOST.Win.OS.1337.Errors.DWCollection.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tasks\LOST.Win.Comp.NetPort.Task.mpx">
@@ -112,6 +115,7 @@
     <EmbeddedResource Include="Scripts\LOST.Win.Comp.Discovery.Get.SysInfo.ps1" />
     <EmbeddedResource Include="Scripts\LOST.Win.Comp.Task.GetUptime.ps1" />
     <EmbeddedResource Include="Scripts\LOST.Win.Comp.Task.TestNetPort.ps1" />
+    <EmbeddedResource Include="Scripts\LOST.Win.OS.Discovery.Get.LicInfo.ps1" />
     <EmbeddedResource Include="Scripts\LOST.Win.OS.Discovery.WSUS.Info.ps1" />
     <EmbeddedResource Include="Scripts\LOST.Win.OS.Discovery.WU.ps1" />
     <EmbeddedResource Include="Scripts\LOST.Win.OS.Task.ListWUpdates.ps1" />

@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Monitoring>
     <Rules>
-      <Rule ID="LOST.Windows.OS.1338.Errors.AlertRule" Enabled="false" Target="LOST.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
+      <Rule ID="LOST.Windows.OS.1337.Errors.AlertRule" Enabled="false" Target="LOST.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>Alert</Category>
         <DataSources>
           <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
@@ -16,7 +16,7 @@
                     </ValueExpression>
                     <Operator>Equal</Operator>
                     <ValueExpression>
-                      <Value Type="UnsignedInteger">1338</Value>
+                      <Value Type="UnsignedInteger">1337</Value>
                     </ValueExpression>
                   </SimpleExpression>
                 </Expression>
@@ -44,7 +44,7 @@
             <AlertName />
             <AlertDescription />
             <AlertOwner />
-            <AlertMessageId>$MPElement[Name="LOST.Windows.OS.1338.Errors.AlertRule.AlertMessage"]$</AlertMessageId>
+            <AlertMessageId>$MPElement[Name="LOST.Windows.OS.1337.Errors.AlertRule.AlertMessage"]$</AlertMessageId>
             <AlertParameters>
               <AlertParameter1>$Data/EventDescription$</AlertParameter1>
             </AlertParameters>
@@ -66,17 +66,17 @@
   </Monitoring>
   <Presentation>
     <StringResources>
-      <StringResource ID="LOST.Windows.OS.1338.Errors.AlertRule.AlertMessage" />
+      <StringResource ID="LOST.Windows.OS.1337.Errors.AlertRule.AlertMessage" />
     </StringResources>
   </Presentation>
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-        <DisplayString ElementID="LOST.Windows.OS.1338.Errors.AlertRule">
-          <Name>Windows Updates - MP Error Alert Rule [LOST]</Name>
+        <DisplayString ElementID="LOST.Windows.OS.1337.Errors.AlertRule">
+          <Name>Windows Extended - MP Error Alert Rule [LOST]</Name>
         </DisplayString>
-        <DisplayString ElementID="LOST.Windows.OS.1338.Errors.AlertRule.AlertMessage">
-          <Name>Windows Updates - MP Error</Name>
+        <DisplayString ElementID="LOST.Windows.OS.1337.Errors.AlertRule.AlertMessage">
+          <Name>Windows Extended - MP Error</Name>
           <Description>{0}</Description>
         </DisplayString>
       </DisplayStrings>

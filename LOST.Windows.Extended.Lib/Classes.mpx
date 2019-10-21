@@ -18,6 +18,9 @@
           <Property ID="WSUSInstallTime" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
           <Property ID="WSUSRebootLoggedOnUsers" Type="bool" Key="false" CaseSensitive="false" MinLength="0" />
           <Property ID="WeekUptime" Type="int" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="License" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="ApplicationID" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
+          <Property ID="LicenseStatus" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
         </ClassType>
         <ClassType ID="LOST.Windows.Computer" Base="Windows!Microsoft.Windows.Computer" Accessibility="Public" Abstract="false" Hosted="false" Singleton="false">
           <Property ID="SystemManufacturer" Type="string" Key="false" CaseSensitive="false" MinLength="0" />
@@ -101,6 +104,18 @@
         <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="WeekUptime">
           <Name>Week(s) Uptime</Name>
           <Description>Uptime in weeks of the OperatingSystem</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="License">
+          <Name>License</Name>
+          <Description>Name of the license</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="ApplicationID">
+          <Name>ApplicationID</Name>
+          <Description>License Application ID</Description>
+        </DisplayString>
+        <DisplayString ElementID="LOST.Windows.OperatingSystem" SubElementID="LicenseStatus">
+          <Name>License Status</Name>
+          <Description>Status of the license</Description>
         </DisplayString>
         <!-- COMPUTER -->
         <DisplayString ElementID="LOST.Windows.Computer">
