@@ -9,7 +9,7 @@ try {
 	
 	# Set stuff
 	[string]$scriptName = $MyInvocation.MyCommand.Name
-	[string]$scriptVersion = 'v1.00'
+	[string]$scriptVersion = 'v1.01'
 	[int]$evtID = 1337
 	$script:traceLog = @()
 	[int]$EventType = 4 # type, 1=Error, 2=Warning, 4=Information
@@ -28,7 +28,10 @@ try {
 
 	# Getting stuff from WMI...
 	Write-Log -Message "Getting settnings from WMI..."
-	$LicStatus = Get-WmiObject SoftwareLicensingProduct | Where-Object {$_.PartialProductKey} | Select Name, ApplicationId, @{N='LicenseStatus';E={$LicReason[[int]$_.LicenseStatus]}}
+	# If more than one lic, get the first one...
+	$LicStatus = Get-WmiObject SoftwareLicensingProduct | 
+				Where-Object {$_.PartialProductKey -and $_.Name -like '*Windows*'} |
+				Select -First 1 Name, ApplicationId, @{N='LicenseStatus';E={$LicReason[[int]$_.LicenseStatus]}}
 	Write-Log -Message ("License Name = [{0}] ApplicationID = [{1}] License Status = [{2}]" -f $LicStatus.Name, $LicStatus.ApplicationId, $LicStatus.LicenseStatus)
 
 	# Add instance
