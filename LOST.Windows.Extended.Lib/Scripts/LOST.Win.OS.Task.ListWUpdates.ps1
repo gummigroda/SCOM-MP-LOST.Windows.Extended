@@ -18,7 +18,7 @@ function Write-Log {
 
 try {
 	[string]$scriptName = $MyInvocation.MyCommand.Name
-	[string]$scriptVersion = 'v1.02'
+	[string]$scriptVersion = 'v1.03'
 	[int]$evtID = 1337
 	[string[]]$script:traceLog = @()
 	[bool]$script:dbg = $false
@@ -49,7 +49,7 @@ try {
 
 	if($SearchResult.Updates.Count -gt 0){
 		$Updates = $SearchResult.Updates | select -ExpandProperty Title | Sort | ForEach-Object {"** $_`n"}
-		Write-Log -Message ("Updates available from WSUS:`n$("-" * 78)`n{0}`n$("-" * 78)" -f $Updates) -ToOutput
+		Write-Log -Message ("Updates ({0}) available from WSUS:`n$("-" * 78)`n{1}`n$("-" * 78)" -f $SearchResult.Updates.Count, ($Updates|Out-string)) -ToOutput
 	}
 	else{
 		Write-Log -Message ("No updates available from WSUS") -ToOutput
