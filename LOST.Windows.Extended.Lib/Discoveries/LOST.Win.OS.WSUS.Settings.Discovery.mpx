@@ -88,6 +88,10 @@
               <Name>computerName</Name>
               <Value>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
             </Parameter>
+            <Parameter>
+              <Name>MGMTName</Name>
+              <Value>$Target/ManagementGroup/Name$</Value>
+            </Parameter>
           </Parameters>
           <TimeoutSeconds>600</TimeoutSeconds>
         </DataSource>
@@ -178,6 +182,10 @@
             <Parameter>
               <Name>computerName</Name>
               <Value>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+            </Parameter>
+            <Parameter>
+              <Name>MGMTName</Name>
+              <Value>$Target/ManagementGroup/Name$</Value>
             </Parameter>
           </Parameters>
           <TimeoutSeconds>600</TimeoutSeconds>

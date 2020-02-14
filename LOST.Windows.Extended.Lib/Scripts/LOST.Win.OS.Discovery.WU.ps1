@@ -1,15 +1,15 @@
-﻿param($sourceId,$managedEntityId,$computerName)
+﻿param($sourceId,$managedEntityId,$computerName,$MGMTName)
+
+function Write-Log([string]$Message) {
+	$printDate = (get-date).ToString("yyyy-MM-dd HH:mm:ss.fff")
+	$script:traceLog += ("{0} | {1}" -f $printDate, $Message)
+	Write-Output ("{0} | {1}" -f $printDate, $Message)
+}
 
 try {
-	function Write-Log([string]$Message) {
-		$printDate = (get-date -F s)
-		$script:traceLog += ("{0} | {1}" -f $printDate, $Message)
-		Write-Output ("{0} | {1}" -f $printDate, $Message)
-	}
-	
 	# Set stuff
 	[string]$scriptName = $MyInvocation.MyCommand.Name
-	[string]$scriptVersion = 'v1.05'
+	[string]$scriptVersion = 'v1.06'
 	[int]$evtID = 1337
 	$script:traceLog = @()
 	[int]$EventType = 4 # type, 1=Error, 2=Warning, 4=Information
@@ -19,7 +19,7 @@ try {
 	[int]$importantUpdates = 0
 	[int]$otherUpdates = 0
 	
-	Write-Log -Message ("ScriptVersion: [{0}], Running as: [{1}]" -f $scriptVersion, (whoami))
+	Write-Log -Message ("ScriptVersion: [{0}], Running as: [{1}], ManagementGroup: [{2}]" -f $scriptVersion, (whoami), $MGMTName)
 	Write-Log -Message ("Start discovery of 'Windows Updates' with SourceID: [{0}] ManagedID: [{1}] Computername: [{2}]" -f $sourceId, $ManagedEntityId, $computerName)
 	
 	# Create MOM Script API and Discoverydata

@@ -1,15 +1,15 @@
-﻿param($sourceId,$managedEntityId,$computerName)
+﻿param($sourceId,$managedEntityId,$computerName,$MGMTName)
 
-try {
-	function Write-Log([string]$Message) {
-		$printDate = (get-date -F s)
-		$script:traceLog += ("{0} | {1}" -f $printDate, $Message)
-		Write-Output ("{0} | {1}" -f $printDate, $Message)
-	}
+function Write-Log([string]$Message) {
+	$printDate = (get-date).ToString("yyyy-MM-dd HH:mm:ss.fff")
+	$script:traceLog += ("{0} | {1}" -f $printDate, $Message)
+	Write-Output ("{0} | {1}" -f $printDate, $Message)	
+}
 	
+try {
 	# Set stuff
 	[string]$scriptName = $MyInvocation.MyCommand.Name
-	[string]$scriptVersion = 'v1.01'
+	[string]$scriptVersion = 'v1.02'
 	[int]$evtID = 1337
 	$script:traceLog = @()
 	[int]$EventType = 4 # type, 1=Error, 2=Warning, 4=Information
@@ -17,7 +17,7 @@ try {
 	# Pretty hash...
 	$LicReason = [ordered]@{0='Unlicensed';1='Licensed';2='OOB Grace';3='OOT Grace';4='Non-Genuine Grace';5='Notification';6='Extended Grace'}
 	
-	Write-Log -Message ("ScriptVersion: [{0}], Running as: [{1}]" -f $scriptVersion, (whoami))
+	Write-Log -Message ("ScriptVersion: [{0}], Running as: [{1}], ManagementGroup: [{2}]" -f $scriptVersion, (whoami), $MGMTName)
 	Write-Log -Message ("Start discovery of 'Windows LicenseStatus' with SourceID: [{0}] ManagedID: [{1}] Computername: [{2}]" -f $sourceId, $ManagedEntityId, $computerName)
 	
 	# Create MOM Script API and Discoverydata

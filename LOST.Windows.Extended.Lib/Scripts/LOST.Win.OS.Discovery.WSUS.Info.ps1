@@ -1,15 +1,15 @@
-﻿param($sourceId,$managedEntityId,$computerName)
+﻿param($sourceId,$managedEntityId,$computerName,$MGMTName)
+
+function Write-Log([string]$Message) {
+	$printDate = (get-date).ToString("yyyy-MM-dd HH:mm:ss.fff")
+	$script:traceLog += ("{0} | {1}" -f $printDate, $Message)
+	Write-Output ("{0} | {1}" -f $printDate, $Message)
+}
 
 try {
-	function Write-Log([string]$Message) {
-		$printDate = (get-date -F s)
-		$script:traceLog += ("{0} | {1}" -f $printDate, $Message)
-		Write-Output ("{0} | {1}" -f $printDate, $Message)
-	}
-	
 	# Set stuff
 	[string]$scriptName = $MyInvocation.MyCommand.Name
-	[string]$scriptVersion = 'v1.03'
+	[string]$scriptVersion = 'v1.04'
 	[int]$evtID = 1337
 	$script:traceLog = @()
 	[int]$EventType = 4 # type, 1=Error, 2=Warning, 4=Information
@@ -18,7 +18,7 @@ try {
 	$AuOpts = @{1 = 'Automatic Updates DISABLED';2 = 'Notify of download and installation';3 = 'Download and notify';4 = 'Download and schedule'}
 	$AUDays = @{0='Every Day';1='Sunday';2='Monday';3='Tuesday';4='Wednesday';5='Thursday';6='Friday';7='Saturday'}
 	
-	Write-Log -Message ("ScriptVersion: [{0}], Running as: [{1}]" -f $scriptVersion, (whoami))
+	Write-Log -Message ("ScriptVersion: [{0}], Running as: [{1}], ManagementGroup: [{2}]" -f $scriptVersion, (whoami), $MGMTName)
 	Write-Log -Message ("Start discovery of 'Windows WSUS Settings' with SourceID: [{0}] ManagedID: [{1}] Computername: [{2}]" -f $sourceId, $ManagedEntityId, $computerName)
 	
 	# Create MOM Script API and Discoverydata
