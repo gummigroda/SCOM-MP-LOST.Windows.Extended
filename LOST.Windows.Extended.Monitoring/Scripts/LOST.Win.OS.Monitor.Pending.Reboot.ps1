@@ -12,7 +12,7 @@ try{
 	# Settings
 	[int]$evtID = 1337
 	$script:traceLog = @()
-	[string]$scriptName = $MyInvocation.MyCommand.Name
+	[string]$scriptName = 'LOST.Win.OS.Monitor.Pending.Reboot.ps1'
 	[string]$scriptVersion = 'v1.00'
 	[bool]$InError = $false
 	[bool]$ScriptDebug = $false

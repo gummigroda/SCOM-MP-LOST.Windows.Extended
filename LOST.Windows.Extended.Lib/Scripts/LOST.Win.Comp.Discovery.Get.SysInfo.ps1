@@ -8,8 +8,8 @@ function Write-Log([string]$Message) {
 
 try {
 	# Set stuff
-	[string]$scriptName = (Split-Path -Path $PSCommandPath -Leaf)
-	[string]$scriptVersion = 'v1.02'
+	[string]$scriptName = 'LOST.Win.Comp.Discovery.Get.SysInfo.ps1'
+	[string]$scriptVersion = 'v1.10'
 	[int]$evtID = 1337
 	[string[]]$script:traceLog = @()
 	# type, 1=Error, 2=Warning, 4=Information

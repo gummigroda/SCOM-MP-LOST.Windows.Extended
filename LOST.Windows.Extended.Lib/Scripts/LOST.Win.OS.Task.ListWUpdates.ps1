@@ -17,7 +17,7 @@ function Write-Log {
 }
 
 try {
-	[string]$scriptName = $MyInvocation.MyCommand.Name
+	[string]$scriptName = 'LOST.Win.OS.Task.ListWUpdates.ps1'
 	[string]$scriptVersion = 'v1.03'
 	[int]$evtID = 1337
 	[string[]]$script:traceLog = @()

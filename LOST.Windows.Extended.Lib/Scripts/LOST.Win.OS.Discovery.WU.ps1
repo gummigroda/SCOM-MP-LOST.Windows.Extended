@@ -8,7 +8,7 @@ function Write-Log([string]$Message) {
 
 try {
 	# Set stuff
-	[string]$scriptName = $MyInvocation.MyCommand.Name
+	[string]$scriptName = 'LOST.Win.OS.Discovery.WU.ps1'
 	[string]$scriptVersion = 'v1.06'
 	[int]$evtID = 1337
 	$script:traceLog = @()

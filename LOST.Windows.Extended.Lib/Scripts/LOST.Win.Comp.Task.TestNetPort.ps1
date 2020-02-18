@@ -20,7 +20,7 @@ function Write-Log {
 }
 
 try {
-	[string]$scriptName = $MyInvocation.MyCommand.Name
+	[string]$scriptName = 'LOST.Win.Comp.Task.TestNetPort.ps1'
 	[string]$scriptVersion = 'v1.02'
 	[int]$evtID = 1337
 	[string[]]$script:traceLog = @()

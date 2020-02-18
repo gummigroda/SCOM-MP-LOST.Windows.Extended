@@ -7,7 +7,7 @@ function Write-Log([string]$Message) {
 }
 
 try{
-	[string]$scriptName = $MyInvocation.MyCommand.Name
+	[string]$scriptName = 'LOST.Win.Comp.Task.GetUptime.ps1'
 	[string]$scriptVersion = 'v1.00'
 	[int]$evtID = 1337
 	[string[]]$script:traceLog = @()
